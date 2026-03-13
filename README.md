@@ -28,3 +28,9 @@
 ### De igual forma, se puede ver el uso de un Arduino UNO en la placa, esto es, para fines prácticos, gracias a la similitud entre el UNO y el ESP32 es posible guiarse por este diagrama de conexión.
 <img width="1385" height="719" alt="Captura de pantalla 2026-03-13 135301" src="https://github.com/user-attachments/assets/e712ba2d-d547-4c2c-9328-c7d7df3142d7" />
 
+# Roles del equipo
+### Yáñez Mancilla Jesús Osvaldo - Líder y ejecutor, responsable del equipo
+### Cruz Molina Hafid - Investigador y ejecutor
+### Reyes Casanova Luis Khaled - Revisor/Editor
+### Hernández Fuentes Nazario - 
+### Mendez García Frank Asael -
