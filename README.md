@@ -33,4 +33,4 @@
 ### Cruz Molina Hafid - Investigador y ejecutor
 ### Reyes Casanova Luis Khaled - Revisor/Editor
 ### Hernández Fuentes Nazario - 
-### Mendez García Frank Asael -
+### Mendez García Frank Asael - Creativo
