@@ -32,5 +32,17 @@
 ### Yáñez Mancilla Jesús Osvaldo - Líder y ejecutor, responsable del equipo
 ### Cruz Molina Hafid - Investigador y ejecutor
 ### Reyes Casanova Luis Khaled - Revisor/Editor
-### Hernández Fuentes Nazario - 
+### Hernández Fuentes Nazario - Secretario y ejecutor
 ### Mendez García Frank Asael - Creativo
+
+# Cronograma de trabajo
+## Fase 1: Cimentación y Definición (9 de marzo al 29 de marzo) 
+### Se realizará la investigación de Hardware para definir el FPGA y los puentes H a utilizar. Se hará el diseño del chasis utilizando madera ligera y el sistema de orugas, así como realizar pruebas individuales de los motores de caja reductora y servomotores con el ESP32.
+## Fase 2: Desarrollo Modular (30 de marzo al 26 de abril)
+### Se hará la programación de la lógica de control y recepción de señales del sensor ultrasónico con el ESP32, también se hará el desarrollo en Verilog para el control de movimiento y la gestión de señales para reducir el ruido eléctrico. Se hará ensamblaje del chasis y montaje de la estructura interna resistente a impactos. 
+## Fase 3: Integración y Comunicación (27 de abril al 17 de mayo)
+### Se establecerá la comunicación fiable entre el ESP32 y el FPGA. SE hará la configuración del banco de baterías (4.4V y 2V) para separar la etapa de potencia y de control. Se realizarán las primeras pruebas de campo, movimiento del tanque y respuesta de los servos de la torreta.
+## Fase 4: Optimización y Pruebas Finales (18 de mayo al 31 de mayo)
+### Se refinará la fluidez de los movimientos y la respuesta del sensor, así como ajustes finales en el hardware para garantizar la autonomía y la estabilidad. Se hará la documentación final, actualizando el README, el manual de usuario y los roles desempeñados por el equipo.
+## Fase 5: Presentación y Cierre (1 de junio al 5 de junio)
+### Presentación del prototipo funcionando de manera realista y cierre de las materias de Programación Avanzada y Sistemas Digitales. 
