@@ -5,44 +5,18 @@
 
 ### Se diseñaría un prototipo basado en uno anteriormente hecho, que mezcle 3 característicaas principales, siendo el diseño mecánico, la integración de software mediante un microcontrolador y de hardware, implementado por un FPGA o en su defecto un CPLD.
 
-### Todo esto dentro de un aspecto educativo y de demostración, sin incluir componentes que puedan dañar la integridad de los/las integrantes del equipo y personas relacionadas a este.
+Para su ejecución basta con el uso de un simulador o IDE correspondiente, aqune esto se verá mejor reflejado en otras carpetas como lo es la docs/ y results/
 
-### Finalmente, todo esto daría luz a un sistema que muestre de manera realista el funcionamiento de un equipo ya conocido en la industria militar, permitiendo asi el acercamiento a un entorno más real y comprensivo de las tecnologías que sí se usan en el día a día en las grandes industrias, no solo militarmente hablando, sino también en términos de creación y desarrollo tanto mecánico, de hardware y software, como se ha específicado anteriormente.
+La estructura del repositorio es la siguiente:
+- **README.md:** Descripción general del proyecto.
+- **PROJECT.md:** Objetivos y planteación del proyecto.
+- **CONTRIBUITING.md:** Guía breve de commits.
+- **AUTHORS.md:** Listado de integrantes y roles de cada uno de ellos.
+- **CHANGELOG.md:** Historial de versiones de los archivos.
+- **.gitignore:** Excluisón de datos pesados.
+- **src/:** Códigos fuente.
+- **docs/:** Documentación.
+- **results/:** Resultados.
+- **hardware/:** Esquemáticos.
 
-# Lista de componentes a utilizar
-### Se planea el uso de:
-### 1 microcontrolador ESP32
-### 1 FPGA (Aún por discutir)
-### 5 Motores de caja reductora (Aún por discutir)
-### 2 Servomotores (El modelo específico aún se encuentra en discusión)
-### 2 Puentes H L298N (Aún por discutir)
-### 1 Sensor ultrasónico
-### 2 baterías 4.4V 3300 mAh
-### 4 Baterías 2V 1300 mAh
-### Posible uso de madera ligera para el chasis del vehpiculo
-### Partes mecánicas para las orugas y ruedas del mismo
-### Estructura interna hecha de madera u otro material resistente a impactos
 
-# Diagrama de conexión entre componentes electrónicos
-### A continuación se presenta un diagrama básico de las conexiones entre un microcontrolador y los 5 motores así como ambos servos, cabe aclarar que aún no se tiene previsto el modelo de FPGA a usar y por ende, no se tiene un diagrama de conexión entre el microcontrolador y la placa de FPGA que sea fiable para el proyecto.
-### De igual forma, se puede ver el uso de un Arduino UNO en la placa, esto es, para fines prácticos, gracias a la similitud entre el UNO y el ESP32 es posible guiarse por este diagrama de conexión.
-<img width="1385" height="719" alt="Captura de pantalla 2026-03-13 135301" src="https://github.com/user-attachments/assets/e712ba2d-d547-4c2c-9328-c7d7df3142d7" />
-
-# Roles del equipo
-### Yáñez Mancilla Jesús Osvaldo - Líder y ejecutor, responsable del equipo
-### Cruz Molina Hafid - Investigador y ejecutor
-### Reyes Casanova Luis Khaled - Revisor/Editor
-### Hernández Fuentes Nazario - Secretario y ejecutor
-### Mendez García Frank Asael - Creativo
-
-# Cronograma de trabajo
-## Fase 1: Cimentación y Definición (9 de marzo al 29 de marzo) 
-### Se realizará la investigación de Hardware para definir el FPGA y los puentes H a utilizar. Se hará el diseño del chasis utilizando madera ligera y el sistema de orugas, así como realizar pruebas individuales de los motores de caja reductora y servomotores con el ESP32.
-## Fase 2: Desarrollo Modular (30 de marzo al 26 de abril)
-### Se hará la programación de la lógica de control y recepción de señales del sensor ultrasónico con el ESP32, también se hará el desarrollo en Verilog para el control de movimiento y la gestión de señales para reducir el ruido eléctrico. Se hará ensamblaje del chasis y montaje de la estructura interna resistente a impactos. 
-## Fase 3: Integración y Comunicación (27 de abril al 17 de mayo)
-### Se establecerá la comunicación fiable entre el ESP32 y el FPGA. SE hará la configuración del banco de baterías (4.4V y 2V) para separar la etapa de potencia y de control. Se realizarán las primeras pruebas de campo, movimiento del tanque y respuesta de los servos de la torreta.
-## Fase 4: Optimización y Pruebas Finales (18 de mayo al 31 de mayo)
-### Se refinará la fluidez de los movimientos y la respuesta del sensor, así como ajustes finales en el hardware para garantizar la autonomía y la estabilidad. Se hará la documentación final, actualizando el README, el manual de usuario y los roles desempeñados por el equipo.
-## Fase 5: Presentación y Cierre (1 de junio al 5 de junio)
-### Presentación del prototipo funcionando de manera realista y cierre de las materias de Programación Avanzada y Sistemas Digitales. 
