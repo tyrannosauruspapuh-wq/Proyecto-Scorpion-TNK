@@ -5,6 +5,10 @@ Con su nombre inspirado en el mítico tanque de la franquicia de Halo, este proy
 - Conseguir la creación de un modelo a escala mecanizado y con buena reistencia física ante golpes.
 - Mostrar el funcionamiento más cercano a la realidad de un vehículo de combate blindado.
 
+Todo esto dentro de un aspecto educativo y de demostración, sin incluir componentes que puedan dañar la integridad de los/las integrantes del equipo y personas relacionadas a este.
+
+Finalmente, esto daría luz a un sistema que muestre de manera realista el funcionamiento de un equipo ya conocido en la industria militar, permitiendo asi el acercamiento a un entorno más real y comprensivo de las tecnologías que sí se usan en el día a día en las grandes industrias, no solo militarmente hablando, sino también en términos de creación y desarrollo tanto mecánico, de hardware y software, como se ha específicado anteriormente.
+
 # Lista de componentes a utilizar
 ### Se planea el uso de:
 - 1 microcontrolador ESP32
