@@ -1,3 +1,4 @@
+# Versión 1.0.0
 # Código del ESP32 ya siendo considerado como "maestro" del FPGA.
 # Se reciben datos por bluetooth usando un HC-05, el ESP32 las procesa y envía los datos hacia la FPGA
 # Para más información, revise la carpeta de docs/
