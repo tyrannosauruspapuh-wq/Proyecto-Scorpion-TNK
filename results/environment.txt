@@ -1,0 +1,5 @@
+CPU: 13th Gen Intel(R) Core(TM) i7-13620H (2.40 GHz)
+OS: Windows 11 Home Single Language
+Compilador: Thonny IDE, Gowin 
+Fecha: 21/05/26
+Intérprete: Jesús Osvaldo Yáñez Mancilla
