@@ -2,7 +2,7 @@
 
 - Yáñez Mancilla Jesús Osvaldo; zs2403182@estudiantes.uv.mx
 - Cruz Molina Hafid
-- Reyes Casanova Luis Khaled
+- Reyes Casanova Luis Khaled zs24013149@estudiantes.uv.mx
 - Hernández Fuentes Nazario
 - Mendez García Frank
 
