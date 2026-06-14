@@ -26,6 +26,9 @@
 - Se crea el archivo de Authors.
 - Se actualiza los nombres, los roles y los correos.
 
+-13 de junio del 2026:
+- Se agrega correo del integrante Hafid.
+
 **src/:**
 -17 de abril del 2026:
 - Se crea la carpeta
@@ -68,4 +71,33 @@
 - Se agregan los pasos de instalación del software en setup_env.sh.
 - Se crea el archivo deploy.sh con las intrucciones del flasheo para la ESP32 y la FPGA.
 
+**presentation//:**
 
+-**scripts/:**
+-8 de junio del 2026
+- Se crea la carpeta de presentation con el guion del integrante Luis.
+- Se agrega el guion del integrante Hafid.
+
+-11 de junio del 2026:
+- Se sube el guión del integrante Nazario.
+
+-12 de junio del 2026:
+- Se actualiza el guion del integrante Luis.
+
+-13 de junio del 2026:
+- Se agrega el guion del integrante Frank.
+- Se actuliza el guion del integrante Hafid.
+- Se agrega el guion del inetgrante Jesús.
+
+-**consent.md:**
+-8 de junio del 2026:
+- Se crea el consent.md y se agrega el permiso del integrante Luis.
+- Se agrega el permiso del integrante Hafid.
+- Se actualiza el archivo.
+
+-11 de junio del 2026:
+- Se agrega el permiso del integrante Nazario.
+
+-13 de junio del 2026:
+- Se agrega permiso del integrante Frank.
+- Se agrega permiso del integrante Jesús.
