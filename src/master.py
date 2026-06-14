@@ -1,4 +1,5 @@
 # Versión 3.0.0
+# Es necesario que se utilicen otros 2 códigos disponibles en el repositorio oficial de Micropython, siendo ble_simple_peripheral
 # Código del ESP32 como "maestro" de la TANG 9K.
 # Se elimina la necesidad del HC-05, se cambia y flashea a Micropython y se usan nuevos comandos para el control del sistema
 # Se contempla el control de 2 motores y 2 servomotores
