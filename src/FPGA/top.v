@@ -1,14 +1,14 @@
-// Versión 2.1.0 del módulo top para la Tang Nano 9K
+// Versión 3.0.0 del módulo top para la Tang Nano 9K
 // Control de 2 Servos y 2 motores, datos enviados por UART desde el ESP32 en formato de 8 bits con sensor ultrasónico para evitar obstáculos.
-// Se soluciona el conflicto de Multiple Drivers presentado en la versión anterior.
-// Autor Jesús Osvaldo Yáñez Mancilla, fecha: 28/05/2026
+// Se limita el movimiento de un servo para mejor uso en el tanque, así como actualización para el joystick del  control.
+// Autor: Jesús Osvaldo Yáñez Mancilla, fecha: 29/05/2026
 module tank_controller (
-    input clk,                // 27MHz nativos de la Tang Nano 9K
-    input rx,                 // Línea proveniente del TX del ESP32
+    input clk,                 // 27MHz nativos de la Tang Nano 9K
+    input rx,                  // Línea proveniente del TX del ESP32
     
     // --- PINES PARA EL SENSOR ULTRASÓNICO ---
-    input sensor_echo,        // Pin Echo (¡Recuerda el divisor de tensión a 3.3V!)
-    output sensor_trigger,    // Pin Trigger (Pulso de disparo de 10us)
+    input sensor_echo,         // Pin Echo (¡Divisor de tensión a 3.3V!)
+    output sensor_trigger,     // Pin Trigger (Pulso de disparo de 10us)
     
     // --- PINES DE CONTROL PARA EL DRIVER TB6612FNG ---
     output reg AIN1 = 1'b0,   // Dirección Motor A (Izquierdo)
@@ -31,6 +31,7 @@ parameter CLK_FREQ = 27000000;
 parameter BAUD_RATE = 9600;
 parameter [16:0] WAIT_TIME = CLK_FREQ / BAUD_RATE; // 2812 ciclos por bit
 
+
 // --- TRIPLE ETAPA DE SINCRONIZACIÓN CONTRA METAESTABILIDAD ---
 reg rx_stage1, rx_stage2, rx_sync;
 always @(posedge clk) begin
@@ -45,9 +46,10 @@ reg [3:0] state = 4'd0;
 reg [7:0] data_raw = 8'd0;
 reg [1:0] state_mode = 2'd0; 
 
-// Registros de ángulos para los servos
-reg [7:0] angulo_j = 8'd90; 
-reg [7:0] angulo_k = 8'd90;
+// --- MODIFICACIÓN 1: Registros para almacenar el valor crudo del joystick (0-255) ---
+// Arrancan en 127 (punto central del joystick)
+reg [7:0] joy_j = 8'd127; 
+reg [7:0] joy_k = 8'd127;
 
 // --- INSTANCIACIÓN DEL RADAR ULTRASÓNICO ---
 wire objeto_al_frente;
@@ -63,9 +65,7 @@ ultrasonic_detector radar (
 // --- RECEPTOR UART CON MUESTREO EN EL CENTRO Y PROTECCIÓN INTEGRADA ---
 always @(posedge clk) begin
     
-    // --- ESCUDO INTERRUPTOR DE EMERGENCIA EN TIEMPO REAL ---
-    // Si en cualquier ciclo de reloj el radar detecta un objeto y los motores
-    // están configurados para ir hacia adelante, cortamos la energía inmediatamente.
+    // --- ESCUDO INTERRUPTOR DE EMBERGENCIA EN TIEMPO REAL ---
     if (objeto_al_frente && AIN1 == 1'b1 && BIN1 == 1'b1) begin
         AIN1 <= 1'b0; AIN2 <= 1'b0;
         BIN1 <= 1'b0; BIN2 <= 1'b0;
@@ -105,15 +105,16 @@ always @(posedge clk) begin
                 state <= 4'd0; 
                 
                 // --- PROCESAMIENTO DE COMANDOS ---
+                // --- MODIFICACIÓN 2: Se elimina el filtro de 180 para aceptar todo el rango 0-255 ---
                 if (state_mode == 2'd1) begin
-                    if (data_raw <= 8'd180) angulo_j <= data_raw;
+                    joy_j <= data_raw;      // Guardamos el valor crudo para el servo J
                     state_mode <= 2'd0;
                 end else if (state_mode == 2'd2) begin
-                    if (data_raw <= 8'd180) angulo_k <= data_raw;
+                    joy_k <= data_raw;      // Guardamos el valor crudo para el servo K
                     state_mode <= 2'd0;
                 end else begin
                     case (data_raw)
-                        // Adelante (F): Solo se permite si el camino está despejado
+                        // Adelante (F)
                         8'h01: begin 
                             if (!objeto_al_frente) begin
                                 AIN1 <= 1'b1; AIN2 <= 1'b0; 
@@ -147,7 +148,6 @@ always @(posedge clk) begin
                         8'hAA: state_mode <= 2'd1; 
                         8'hBB: state_mode <= 2'd2; 
                         default: begin
-                            // Mantener estados si llega ruido o basura por UART
                             AIN1 <= AIN1; AIN2 <= AIN2;
                             BIN1 <= BIN1; BIN2 <= BIN2;
                         end
@@ -159,9 +159,27 @@ always @(posedge clk) begin
     endcase
 end
 
-// --- INSTANCIACIÓN DE MÓDULOS PWM ---
-servo_pwm control_j (.clk(clk), .angle(angulo_j), .pwm_out(pwm_j));
-servo_pwm control_k (.clk(clk), .angle(angulo_k), .pwm_out(pwm_k));
+// --- MODIFICACIÓN 3: Actualización de instanciaciones con parámetros ---
+
+// Servo J: Girará los 180° completos (Rango de 27,000 a 54,000 ciclos)
+servo_pwm #(
+    .MIN_CYCLES(20'd27000), 
+    .STEP_CYCLES(20'd106)   
+) control_j (
+    .clk(clk), 
+    .joystick_val(joy_j), 
+    .pwm_out(pwm_j)
+);
+
+// Servo K: Girará máximo 45° centrado (Rango limitado de 37,125 a 43,875 ciclos)
+servo_pwm #(
+    .MIN_CYCLES(20'd33750),
+    .STEP_CYCLES(20'd53)
+) control_k (
+    .clk(clk), 
+    .joystick_val(joy_k), 
+    .pwm_out(pwm_k)
+);
 
 endmodule
 
@@ -170,8 +188,8 @@ endmodule
 // --- SUBMÓDULO: DETECTOR ULTRASÓNICO (HC-SR04) ---
 // =========================================================================
 module ultrasonic_detector (
-    input clk,               
-    input echo,              
+    input clk,                
+    input echo,               
     output reg trigger = 0,  
     output reg obstaculo = 0 
 );
@@ -179,8 +197,6 @@ module ultrasonic_detector (
     reg [21:0] echo_count = 22'd0;
     reg echo_past = 1'b0;
 
-    // 1. GENERADOR DE TRIGGER: Envía un pulso de 10us cada 60ms
-    // 60ms @ 27MHz = 1,620,000 ciclos. 10us = 270 ciclos.
     always @(posedge clk) begin
         if (clk_trigger < 22'd1620000) begin
             clk_trigger <= clk_trigger + 22'd1;
@@ -190,21 +206,18 @@ module ultrasonic_detector (
         end
     end
 
-    // 2. MEDIDOR DE ANCHO DE PULSO (Mapeo de distancia)
-    // Umbral de 15 cm * 1566 ciclos por cm = 23,490 ciclos de reloj
     always @(posedge clk) begin
         echo_past <= echo;
         
         if (echo) begin
-            if (echo_count < 22'd200000) begin // Evitar desbordamiento por rebote infinito
+            if (echo_count < 22'd200000) begin 
                 echo_count <= echo_count + 22'd1;
             end
         end else if (echo_past && !echo) begin
-            // Flanco de bajada detectado: Terminó de leer el pulso de eco
             if (echo_count < 22'd23490 && echo_count > 22'd300) begin
-                obstaculo <= 1'b1; // ¡Obstáculo detectado a menos de 15cm!
+                obstaculo <= 1'b1; 
             end else begin
-                obstaculo <= 1'b0; // Camino libre
+                obstaculo <= 1'b0; 
             end
             echo_count <= 22'd0;
         end
@@ -213,17 +226,20 @@ endmodule
 
 
 // =========================================================================
-// --- SUBMÓDULO: SERVO PWM ---
+// --- SUBMÓDULO: SERVO PWM PARAMETRIZADO ---
 // =========================================================================
-module servo_pwm (
+module servo_pwm #(
+    parameter MIN_CYCLES = 20'd27000,  
+    parameter STEP_CYCLES = 20'd106    
+)(
     input clk,
-    input [7:0] angle,
+    input [7:0] joystick_val,          
     output reg pwm_out
 );
     reg [19:0] counter = 20'd0;
     wire [19:0] duty_cycle;
 
-    assign duty_cycle = 20'd27000 + ((angle > 8'd180 ? 8'd180 : angle) * 20'd150); 
+    assign duty_cycle = MIN_CYCLES + (joystick_val * STEP_CYCLES); 
 
     always @(posedge clk) begin
         if (counter < 20'd540000 - 1) 
