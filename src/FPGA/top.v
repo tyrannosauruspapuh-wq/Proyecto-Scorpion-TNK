@@ -1,6 +1,6 @@
-// Versión 2.0.0 del módulo top para la Tang Nano 9K
+// Versión 2.0.1 del módulo top para la Tang Nano 9K
 // Control de 2 Servos y 2 motores, datos enviados por UART desde el ESP32 en formato de 8 bits
-// Se agrega un sensor ultrasónico para autonomía del tanque.
+// Se elimina la línea 190 previamente presente en la versión anterior debido a preoblemas de sintesis.
 // Autor Jesús Osvaldo Yáñez Mancilla, fecha: 28/05/2026
 module tank_controller (
     input clk,                // 27MHz nativos de la Tang Nano 9K
@@ -187,7 +187,6 @@ module ultrasonic_detector (
 
     // 1. GENERADOR DE TRIGGER: Envía un pulso de 10us cada 60ms
     // 60ms @ 27MHz = 1,620,000 ciclos. 10us = 270 ciclos.
-    always @(configure_trigger_pulse) begin end // Marcador lógico conceptual
     always @(posedge clk) begin
         if (clk_trigger < 22'd1620000) begin
             clk_trigger <= clk_trigger + 22'd1;
