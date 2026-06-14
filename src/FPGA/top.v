@@ -1,6 +1,6 @@
-// Versión 2.0.1 del módulo top para la Tang Nano 9K
-// Control de 2 Servos y 2 motores, datos enviados por UART desde el ESP32 en formato de 8 bits
-// Se elimina la línea 190 previamente presente en la versión anterior debido a preoblemas de sintesis.
+// Versión 2.1.0 del módulo top para la Tang Nano 9K
+// Control de 2 Servos y 2 motores, datos enviados por UART desde el ESP32 en formato de 8 bits con sensor ultrasónico para evitar obstáculos.
+// Se soluciona el conflicto de Multiple Drivers presentado en la versión anterior.
 // Autor Jesús Osvaldo Yáñez Mancilla, fecha: 28/05/2026
 module tank_controller (
     input clk,                // 27MHz nativos de la Tang Nano 9K
@@ -60,8 +60,17 @@ ultrasonic_detector radar (
 );
 
 
-// --- RECEPTOR UART CON MUESTREO EN EL CENTRO ---
+// --- RECEPTOR UART CON MUESTREO EN EL CENTRO Y PROTECCIÓN INTEGRADA ---
 always @(posedge clk) begin
+    
+    // --- ESCUDO INTERRUPTOR DE EMERGENCIA EN TIEMPO REAL ---
+    // Si en cualquier ciclo de reloj el radar detecta un objeto y los motores
+    // están configurados para ir hacia adelante, cortamos la energía inmediatamente.
+    if (objeto_al_frente && AIN1 == 1'b1 && BIN1 == 1'b1) begin
+        AIN1 <= 1'b0; AIN2 <= 1'b0;
+        BIN1 <= 1'b0; BIN2 <= 1'b0;
+    end
+    
     case (state)
         4'd0: begin // IDLE
             clk_count <= 17'd0;
@@ -138,14 +147,9 @@ always @(posedge clk) begin
                         8'hAA: state_mode <= 2'd1; 
                         8'hBB: state_mode <= 2'd2; 
                         default: begin
-                            // Mapeo dinámico de protección: si vamos hacia adelante y detecta algo, frena
-                            if (objeto_al_frente && AIN1 == 1'b1 && BIN1 == 1'b1) begin
-                                AIN1 <= 1'b0; AIN2 <= 1'b0;
-                                BIN1 <= 1'b0; BIN2 <= 1'b0;
-                            end else begin
-                                AIN1 <= AIN1; AIN2 <= AIN2;
-                                BIN1 <= BIN1; BIN2 <= BIN2;
-                            end
+                            // Mantener estados si llega ruido o basura por UART
+                            AIN1 <= AIN1; AIN2 <= AIN2;
+                            BIN1 <= BIN1; BIN2 <= BIN2;
                         end
                     endcase
                 end
@@ -153,16 +157,6 @@ always @(posedge clk) begin
         end
         default: state <= 4'd0;
     endcase
-end
-
-// --- ESCUDO INTERRUPTOR ASÍNCRONO DE EMERGENCIA ---
-// Si el tanque está avanzando y el sensor cambia a 1 en CUALQUIER momento (fuera de la UART),
-// este bloque quita la tracción delantera instantáneamente en el próximo ciclo de reloj.
-always @(posedge clk) begin
-    if (objeto_al_frente && AIN1 == 1'b1 && BIN1 == 1'b1) begin
-        AIN1 <= 1'b0; AIN2 <= 1'b0;
-        BIN1 <= 1'b0; BIN2 <= 1'b0;
-    end
 end
 
 // --- INSTANCIACIÓN DE MÓDULOS PWM ---
