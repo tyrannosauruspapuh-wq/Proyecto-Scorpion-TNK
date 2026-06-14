@@ -1,10 +1,22 @@
 Componentes de hardware usados:
 
-Lámina de acera calibre 21
-Cadenas de bicicleta
-Solera de 1/2"
-2 Puentes H TB6612FNG 
-1 ESP32S
-1 FPGA Tang Nano 9K
-2 Motores JGA25-370
-  
+- 1 microcontrolador ESP32
+- 1 FPGA Tang NANO 9K
+- 1 Control de XBOX
+- 2 Motor DC de caja reductora
+- 2 Motores DC JGA25-370
+- 2 Servomotores (El modelo específico aún se encuentra en discusión)
+- 2 Puentes H TB6612FNG
+- 1 Sensor ultrasónico
+- 4 baterías 4.4V 3300 mAh
+- 8 Baterías 1.8V 1300 mAh
+- Estrellas de piñones de bicicleta
+- Cadenas de bicicleta para las orugas
+- Triplay
+- Solera de 1/2" para el chasis interno
+- Ángulo de 2"
+- Lámina calibre 21 para la carrocería
+- Tubos de plástico para los cañones
+- Hojas de papel
+- PlastiLoka
+- Herramienta necesaria para el manejo de los materiales (pulidora, cortadora, esmeril, extractor de cadenas, taladro).
