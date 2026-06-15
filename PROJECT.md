@@ -14,13 +14,14 @@ Finalmente, esto daría luz a un sistema que muestre de manera realista el funci
 - 1 microcontrolador ESP32
 - 1 FPGA Tang NANO 9K
 - 1 Control de XBOX
-- 2 Motor DC de caja reductora
+- 2 Motores DC de caja reductora
 - 2 Motores DC JGA25-370
-- 2 Servomotores (El modelo específico aún se encuentra en discusión)
+- 2 Servomotores SG90
 - 2 Puentes H TB6612FNG
+- 1 Puente H L298N
 - 1 Sensor ultrasónico
 - 4 baterías 4.4V 3300 mAh
-- 8 Baterías 1.8V 1300 mAh
+- 8 Baterías 1.2V 1300 mAh
 - Estrellas de piñones de bicicleta
 - Cadenas de bicicleta para las orugas
 - Triplay
