@@ -16,7 +16,9 @@ Finalmente, validada la trama, extraemos el byte crudo y pasamos a la decodifica
 
 Transcripción del Integrante 3:
 
-Una vez que la UART decodifica el comando recibido desde la aplicación móvil, la lógica interna de la MAX II distribuye las señales de control a los distintos actuadores del sistema. Este proceso se realiza completamente en hardware, lo que permite una respuesta rápida y simultánea a las órdenes enviadas por el usuario. Para la tracción, controlamos un puente H TB6612FNG encargado de manejar los motores de corriente continua. A diferencia de las simulaciones, en el hardware real fijamos las líneas de velocidad PWM al 100% y manipulamos directamente las compuertas lógicas de dirección AIN1, AIN2, BIN1 y BIN2 para lograr giros suaves y reversas inmediatas. Además, nos aseguramos de que el pin de Standby del driver permanezca correctamente energizado de forma externa para garantizar su funcionamiento continuo.
+Una vez que la UART decodifica el comando recibido desde la aplicación móvil, la lógica interna de la MAX II distribuye las señales de control a los distintos
+actuadores del sistema. Este proceso se realiza completamente en hardware, lo que permite una respuesta rápida y simultánea a las órdenes enviadas por el
+usuario. Para la tracción, controlamos un puente H TB6612FNG encargado de manejar los motores de corriente continua. A diferencia de las simulaciones, en el hardware real fijamos las líneas de velocidad PWM al 100% y manipulamos directamente las compuertas lógicas de dirección AIN1, AIN2, BIN1 y BIN2 para lograr giros suaves y reversas inmediatas. Además, nos aseguramos de que el pin de Standby del driver permanezca correctamente energizado de forma externa para garantizar su funcionamiento continuo.
 
 Para los servomotores, creamos un submódulo PWM o Modulación por Ancho de Pulso. Este bloque toma el ángulo enviado por la aplicación y lo convierte en una señal adecuada para posicionar el servo. El pulso generado varía entre 1 y 2 milisegundos dentro de un ciclo repetitivo de 20 milisegundos, permitiendo un control preciso y estable de la posición deseada.
 
