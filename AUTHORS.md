@@ -4,7 +4,7 @@
 - Cruz Molina Hafid; zs24013128@estudiantes.uv.mx
 - Reyes Casanova Luis Khaled; zs24013149@estudiantes.uv.mx
 - Hernández Fuentes Nazario
-- Mendez García Frank
+- Mendez García Frank; zs24013198@estudiantes.uv.mx
 
 # Roles del equipo
 - Yáñez Mancilla Jesús Osvaldo - Líder y ejecutor, responsable del equipo
