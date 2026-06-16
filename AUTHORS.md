@@ -3,7 +3,7 @@
 - Yáñez Mancilla Jesús Osvaldo; zs2403182@estudiantes.uv.mx
 - Cruz Molina Hafid; zs24013128@estudiantes.uv.mx
 - Reyes Casanova Luis Khaled; zs24013149@estudiantes.uv.mx
-- Hernández Fuentes Nazario
+- Hernández Fuentes Nazario; zS24013187@estudientes.uv.mx
 - Mendez García Frank; zs24013198@estudiantes.uv.mx
 
 # Roles del equipo
